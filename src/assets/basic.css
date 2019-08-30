@@ -1,0 +1,196 @@
+/**reset Css**/
+
+* {
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body,
+#app {
+    width: 100%;
+    height: 100%;
+}
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+button,
+textarea,
+p,
+blockquote,
+th,
+td {
+    margin: 0;
+    padding: 0;
+}
+
+fieldset,
+img {
+    border: 0;
+}
+
+ul,
+ol,
+li {
+    list-style: none;
+}
+
+
+/* remember to define focus styles! */
+
+ :focus {
+    outline: 0;
+}
+
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+strong,
+th,
+var,
+optgroup {
+    font-style: normal;
+    font-weight: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+abbr,
+acronym {
+    border: 0;
+    font-variant: normal;
+}
+
+input,
+button,
+textarea,
+select,
+optgroup,
+option {
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    background-color: #fff;
+    border: none;
+}
+
+code,
+kbd,
+samp,
+tt {
+    font-size: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+
+/*@purpose To enable resizing for IE */
+
+
+/*@branch For IE6-Win, IE7-Win */
+
+input,
+button,
+textarea {
+    *font-size: 100%;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+i {
+    font-style: normal;
+}
+
+
+/* tables still need 'cellspacing="0"' in the markup */
+
+table,
+tr,
+td {
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 0;
+    padding: 0;
+}
+
+caption,
+th {
+    text-align: left;
+}
+
+sup,
+sub {
+    font-size: 100%;
+    vertical-align: baseline;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: "";
+    content: none;
+}
+
+.el-form-item.is-success .el-input__inner,
+.el-form-item.is-success .el-input__inner:focus,
+.el-form-item.is-success .el-textarea__inner,
+.el-form-item.is-success .el-textarea__inner:focus {
+    border-color: #dcdfe6;
+}
+
+.clearfix:after {
+    content: "";
+    height: 0;
+    line-height: 0;
+    display: block;
+    clear: both;
+    visibility: hidden;
+}
