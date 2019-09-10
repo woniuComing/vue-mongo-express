@@ -40,7 +40,7 @@ export default {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     //初步验证通过
-                    BaseRequest.userRegister({
+                    BaseRequest.userLogin({
                         email: this.ruleForm.email,
                         password: this.ruleForm.password
                     }).then(res => {
@@ -49,6 +49,7 @@ export default {
                             // console.log('success');
                             storage.set('token', res.data.token);
                             storage.set('name', this.ruleForm.email);
+                            this.$router.push('/layout/list');
                         }
                     })
                 } else {
@@ -56,7 +57,9 @@ export default {
                     return false;
                 }
             });
+        },
+        go() {
+            this.$router.push('/register');
         }
-
     }
 }

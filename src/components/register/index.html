@@ -1,3 +1,20 @@
 <div class="register">
-    <p>register</p>
+    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="80px" class="demo-ruleForm">
+        <p class='regist_title'>请填写以下信息完成注册</p>
+        <el-form-item label="用户名" prop="email">
+            <el-input v-model="ruleForm.email" autocomplete="off" placeholder="请输入邮箱"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+            <el-input type="password" v-model="ruleForm.password" autocomplete="off" placeholder="请输入密码"></el-input>
+        </el-form-item>
+        <el-form-item label="性别">
+            <el-radio-group v-model="ruleForm.gender">
+                <el-radio :label="0">女</el-radio>
+                <el-radio :label="1">男</el-radio>
+            </el-radio-group>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="primary" @click="register('ruleForm')" class='submit_btn'>注册</el-button>
+        </el-form-item>
+    </el-form>
 </div>

@@ -1,0 +1,51 @@
+<div class="list">
+    <div class="search">
+        <el-form :inline="true" :model="formInline" class="demo-form-inline">
+            <el-form-item label="账号">
+                <el-input v-model="formInline.email" placeholder="输入要查询的账号"></el-input>
+            </el-form-item>
+            <el-form-item prop="date1">
+                <el-date-picker type="date" placeholder="选择要查询的日期" v-model="formInline.date" style="width: 100%;"></el-date-picker>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="onSubmit">查询</el-button>
+            </el-form-item>
+        </el-form>
+    </div>
+    <div class='list-table'>
+        <el-table :data='tableData' stripe border style="width: 100%" v-show='tableData.length'>
+            <el-table-column fixed prop="_id" align='center' label="ID"></el-table-column>
+            <el-table-column prop="date" align='center' width="210" label="日期" :formatter='formatTime'></el-table-column>
+            <el-table-column prop="email" align='center' label="用户名"></el-table-column>
+            <el-table-column prop="gender" align='center' label="性别" :formatter='formatGender'></el-table-column>
+            <el-table-column fixed="right" align='center' width="120" label="操作">
+                <template slot-scope="scope">
+                    <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
+                    <el-button type="text" size="small" @click='deleteList(scope.row)'>删除</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+    </div>
+    <el-pagination v-if='tableData.length' background layout="prev, pager, next" :page-size='5' :total="totalcount" @current-change='changePage'>
+    </el-pagination>
+    <el-dialog :visible.sync="dialogFormVisible" width='30%'>
+        <el-form :model="dialogform">
+            <el-form-item label="账户">
+                <el-input v-model="dialogform.email" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="日期">
+                <el-date-picker type="date" v-model="dialogform.date" disabled style="width: 100%;"></el-date-picker>
+            </el-form-item>
+            <el-form-item label="性别">
+                <el-radio-group v-model="dialogform.gender">
+                    <el-radio :label="0">女</el-radio>
+                    <el-radio :label="1">男</el-radio>
+                </el-radio-group>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="updateList">确 定</el-button>
+        </div>
+    </el-dialog>
+</div>

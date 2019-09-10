@@ -25,16 +25,20 @@ instance.interceptors.request.use(
 )
 instance.interceptors.response.use(
     response => {
+        // console.log('response', response);
         let data = response.data
         if (data.status === undefined || data.status === 0) {
             Message.error(data.msg || '请求错误')
         }
-        return response
+        return { data: response.data }
     },
     error => {
         //处理错误逻辑
         if (error.response.status === 401) {
-
+            Message.error('登录信息验证失败，3秒后会自动跳转登录页面~');
+            setTimeout(() => {
+                window.location.replace('/');
+            }, 3000);
         } else {
             Message.error('请求失败，请稍后重试！')
         }

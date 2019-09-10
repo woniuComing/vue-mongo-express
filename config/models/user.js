@@ -10,6 +10,9 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    gender: {
+        type: Number,
+    },
     date: {
         type: Date,
         default: Date.now
