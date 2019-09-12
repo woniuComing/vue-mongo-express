@@ -4,6 +4,17 @@ const JWT = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../../models/user');
 const key = require('../../key');
+const queryRules = (resource) => {
+        return {
+            'email': { $regex: resource.email, $options: '$i' },
+            'date': { $gte: resource.date },
+            'gender': resource.gender
+        }
+    }
+    // const queryRules = {
+    //     'email': { $regex: req.body.email, $options: '$i' },
+    //     'date': { $gte: req.body.date },
+    // }
 router.post('/register', (req, res) => {
     //判断数据库里面有没有
     //没有的话写入数据库
@@ -74,42 +85,75 @@ router.post('/list', (req, res) => {
     const limit = req.body.limit || 5;
     let countNum = 0;
     let condition = {};
-
-    function handleQuery(queryConfig, ...params) {
-        let [{ email, date }] = params;
-        if (email) {
-            condition = {
-                [email]: { $regex: queryConfig.emailConfig, $options: '$i' }
-            }
-        } else if (date) {
-            condition = {
-                [date]: { $gte: queryConfig.dateConfig }
-            }
-        } else if (email && date) {
-            condition = {
-                [email]: { $regex: queryConfig.emailConfig, $options: '$i' },
-                [date]: { $gte: queryConfig.dateConfig }
-            }
+    for (let item in req.body) {
+        if (item !== 'page' && req.body[item]) {
+            condition[item] = queryRules(req.body)[item]
         }
-        //  else {
-        //     condition = {};
-        // }
     }
-    if (req.body.email && req.body.date) {
-        handleQuery({ emailConfig: req.body.email, dateConfig: req.body.date }, { email: 'email', date: 'date' })
-    } else if (req.body.email && !req.body.date) {
-        handleQuery({ emailConfig: req.body.email }, { email: 'email' })
-    } else if (req.body.date && !req.body.email) {
-        handleQuery({ dateConfig: req.body.date }, { date: 'date' })
-    } else {
+    // {
+    //     $or : [ //多条件，数组
+    //         {nick : {$regex : reg}},
+    //         {email : {$regex : reg}}
+    //     ]
+    // },
+    // {$or:
+    //     [
+    //      {$and:[{"state1":11},{"state2":22}]},{"value":{$gte:300}}
+    //     ]
+    //   }
+    // condition = {
+    //     $or: [
+    //         {
+    //             $and: [
+    //                 { 'email': { $regex: req.body.email, $options: '$i' } },
+    //                 { 'date': { $gte: req.body.date } }
+    //             ]
+    //         },
+    //         { 'email': { $regex: req.body.email, $options: '$i' } },
+    //         { 'date': { $gte: req.body.date } }
+    //     ]
+    // }
+    // console.log(Object.values(req.body));
+    // condition = {
+    //     $and: [{
+    //         $or: [
+    //             { 'email': { $regex: req.body.email, $options: '$i' } },
+    //             { 'date': { $gte: req.body.date } }
+    //         ]
+    //     }]
+    // }
+    // function handleQuery(queryConfig, ...params) {
+    //     let [{ email, date }] = params;
+    //     if (email) {
+    //         condition = {
+    //             [email]: { $regex: queryConfig.emailConfig, $options: '$i' }
+    //         }
+    //     } else if (date) {
+    //         condition = {
+    //             [date]: { $gte: queryConfig.dateConfig }
+    //         }
+    //     } else if (email && date) {
+    //         condition = {
+    //             [email]: { $regex: queryConfig.emailConfig, $options: '$i' },
+    //             [date]: { $gte: queryConfig.dateConfig }
+    //         }
+    //     }
+    // }
+    // if (req.body.email && req.body.date) {
+    //     handleQuery({ emailConfig: req.body.email, dateConfig: req.body.date }, { email: 'email', date: 'date' })
+    // } else if (req.body.email && !req.body.date) {
+    //     handleQuery({ emailConfig: req.body.email }, { email: 'email' })
+    // } else if (req.body.date && !req.body.email) {
+    //     handleQuery({ dateConfig: req.body.date }, { date: 'date' })
+    // } else {
 
-    }
+    // }
     //统计符合的个数
     User.countDocuments(condition, (err, res) => {
             if (err) {
                 console.log('统计个数报错', err)
             } else {
-                // console.log(res);
+                console.log(res);
                 countNum = res;
             }
         })

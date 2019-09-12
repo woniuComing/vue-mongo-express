@@ -18,7 +18,7 @@ const formatUTC2ChinaTime = (UTCDateString) => {
 const formatGender = (sex) => {
     let sexFlag = '暂无'
     switch (sex) {
-        case 0:
+        case 2:
             sexFlag = '女';
             break
         case 1:
@@ -31,4 +31,6 @@ const formatGender = (sex) => {
     return sexFlag;
 
 }
+
+
 export { storage, formatUTC2ChinaTime, formatGender };

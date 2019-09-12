@@ -7,7 +7,8 @@ export default {
             totalcount: 0,
             formInline: {
                 email: '',
-                date: ''
+                date: '',
+                gender: ''
             },
             tableData: [],
             dialogFormVisible: false,
@@ -16,7 +17,17 @@ export default {
                 email: '',
                 date: '',
                 gender: -1,
-            }
+            },
+            genderArr: [{
+                    value: 2,
+                    label: '女'
+                },
+                {
+                    value: 1,
+                    label: '男'
+                }
+
+            ]
         }
     },
     mounted() {
@@ -104,7 +115,8 @@ export default {
                 const listData = await BaseRequest.userList({
                     page: this.page,
                     email: this.formInline.email,
-                    date: this.formInline.date
+                    date: this.formInline.date,
+                    gender: this.formInline.gender
                 });
                 console.log('列表数据', listData);
                 this.tableData = listData.data.data;
